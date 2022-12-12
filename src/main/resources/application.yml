@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     username: root
-    url: jdbc:mysql://localhost:5000/Movieland
+    url: jdbc:mysql://localhost:5000/movieland
     password: user

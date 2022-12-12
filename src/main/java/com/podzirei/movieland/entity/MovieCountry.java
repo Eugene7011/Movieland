@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "movie_genre")
+@Table(name = "movie_country")
 public class MovieCountry {
-
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
-    private Country country;
 
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
+
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    private Country country;
 }
