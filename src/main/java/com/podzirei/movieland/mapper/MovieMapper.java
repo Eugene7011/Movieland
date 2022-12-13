@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
 
-    List<MovieDto> moviesToMovieDtos(List<Movie> cars);
+    List<MovieDto> moviesToMovieDtos(List<Movie> movies);
 
     @Mapping(target = "releasedDate", source = "releasedDate", qualifiedByName = "mapDateFromMovie")
     MovieDto movieToMovieDto(Movie movie);
