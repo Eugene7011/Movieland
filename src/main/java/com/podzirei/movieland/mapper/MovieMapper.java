@@ -15,12 +15,12 @@ public interface MovieMapper {
 
     List<MovieDto> moviesToMovieDtos(List<Movie> movies);
 
-    @Mapping(target = "releasedDate", source = "releasedDate", qualifiedByName = "mapDateFromMovie")
+    @Mapping(target = "yearOfRelease", source = "yearOfRelease", qualifiedByName = "mapDateFromMovie")
     MovieDto movieToMovieDto(Movie movie);
 
     @Mapping(target = "description", ignore = true)
     @Mapping(target = "votes", ignore = true)
-    @Mapping(target = "releasedDate", source = "releasedDate", qualifiedByName = "mapDateFromMovieDto")
+    @Mapping(target = "yearOfRelease", source = "yearOfRelease", qualifiedByName = "mapDateFromMovieDto")
     Movie movieDtoToMovie(MovieDto movieDto);
 
     @Named("mapDateFromMovie")

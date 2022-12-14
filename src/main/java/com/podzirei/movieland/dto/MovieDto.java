@@ -17,7 +17,7 @@ public class MovieDto {
     private int id;
     private String nameRussian;
     private String nameNative;
-    private String releasedDate;
+    private String yearOfRelease;
     private Double rating;
     private Double price;
     private String picturePath;

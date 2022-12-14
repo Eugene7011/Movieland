@@ -38,7 +38,7 @@ public class Movie {
     private String nameNative;
 
     @Column(name = "year_of_release", nullable = false)
-    private Date releasedDate;
+    private Date yearOfRelease;
 
     @Column(name = "description", nullable = false)
     private String description;
