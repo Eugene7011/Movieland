@@ -5,8 +5,8 @@ import com.podzirei.movieland.mapper.MovieMapper;
 import com.podzirei.movieland.repository.MovieRepository;
 import com.podzirei.movieland.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,34 @@ public class DefaultMovieService implements MovieService {
     private final MovieRepository movieRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public List<MovieDto> findAll() {
         return movieMapper.moviesToMovieDtos(movieRepository.findAll());
     }
 
     @Override
+    public List<MovieDto> findAllByPriceSorted(String sortType) {
+        validateSortType(sortType);
+
+        if ("desc".equals(sortType)) {
+            return movieMapper.moviesToMovieDtos(movieRepository.findAll(Sort.by("price").descending()));
+        }
+        return movieMapper.moviesToMovieDtos(movieRepository.findAll(Sort.by("price")));
+    }
+
+    @Override
+    public List<MovieDto> findAllByRatingSorted(String sortType) {
+        validateSortType(sortType);
+
+        if ("desc".equals(sortType)) {
+            return movieMapper.moviesToMovieDtos(movieRepository.findAll(Sort.by("rating").descending()));
+        }
+        return movieMapper.moviesToMovieDtos(movieRepository.findAll(Sort.by("rating")));
+    }
+
+    @Override
     public List<MovieDto> findThreeRandom() {
         List<MovieDto> allMovies = movieMapper.moviesToMovieDtos(movieRepository.findAll());
-        if (allMovies.size() < 3){
+        if (allMovies.size() < 3) {
             return allMovies;
         }
 
@@ -41,5 +60,11 @@ public class DefaultMovieService implements MovieService {
             allMovies.remove(randomMovie);
         }
         return randomMovies;
+    }
+
+    private void validateSortType(String sortType) {
+        if (!"asc".equalsIgnoreCase(sortType) && !"desc".equalsIgnoreCase(sortType)) {
+            throw new IllegalArgumentException("Sort parameter should be asc or desc");
+        }
     }
 }

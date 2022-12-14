@@ -4,7 +4,3 @@ spring:
     username: root
     url: jdbc:mysql://localhost:5000/movieland
     password: user
-
-caching:
-  spring:
-    genres: 14400000

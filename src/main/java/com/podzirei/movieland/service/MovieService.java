@@ -8,4 +8,8 @@ public interface MovieService {
 
     List<MovieDto> findAll();
     List<MovieDto> findThreeRandom();
+
+    List<MovieDto> findAllByRatingSorted(String sortType);
+
+    List<MovieDto> findAllByPriceSorted(String sortType);
 }

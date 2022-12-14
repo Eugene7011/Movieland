@@ -10,6 +10,8 @@ import java.util.List;
 public interface GenreMapper {
 
     List<GenreDto> genresToGenresDtos(List<Genre> genres);
-    GenreDto movieToMovieDto(Genre genre);
-    Genre movieDtoToMovie(GenreDto genreDto);
+
+    GenreDto genreToGenreDto(Genre genre);
+
+    Genre genreDtoToGenre(GenreDto genreDto);
 }
