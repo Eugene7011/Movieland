@@ -12,4 +12,10 @@ public interface MovieService {
     List<MovieDto> findAllByRatingSorted(String sortType);
 
     List<MovieDto> findAllByPriceSorted(String sortType);
+
+    List<MovieDto> findByGenreId(int genreId);
+
+    List<MovieDto> findByGenreIdOrderByRating(int genreId, String sortType);
+
+    List<MovieDto> findByGenreIdOrderByPrice(int genreId, String sortType);
 }

@@ -23,6 +23,23 @@ public class MovieController {
         return movieService.findAll();
     }
 
+    @GetMapping("/genre/{genreId}")
+    public List<MovieDto> getByGenreId(@PathVariable("genreId") int genreId) {
+        return movieService.findByGenreId(genreId);
+    }
+
+    @GetMapping("/genre/{genreId}/rating/{sortType}")
+    public List<MovieDto> getByGenreIdOrderByRating(@PathVariable("genreId") int genreId,
+                                                    @PathVariable("sortType") String sortType) {
+        return movieService.findByGenreIdOrderByRating(genreId, sortType);
+    }
+
+    @GetMapping("/genre/{genreId}/price/{sortType}")
+    public List<MovieDto> getByGenreIdOrderByPrice(@PathVariable("genreId") int genreId,
+                                                   @PathVariable("sortType") String sortType) {
+        return movieService.findByGenreIdOrderByPrice(genreId, sortType);
+    }
+
     @GetMapping("/rating/{sortType}")
     public List<MovieDto> getAllByRatingSorted(@PathVariable("sortType") String sortType) {
         return movieService.findAllByRatingSorted(sortType);

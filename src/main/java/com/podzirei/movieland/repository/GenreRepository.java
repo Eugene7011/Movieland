@@ -25,7 +25,7 @@ public class GenreRepository {
         return defaultGenreRepository.findById(id);
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 1400000)
     public void updateCache() {
         cachedGenres.clear();
         cachedGenres.addAll(defaultGenreRepository.findAll());
