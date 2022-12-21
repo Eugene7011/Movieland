@@ -3,11 +3,13 @@ package com.podzirei.movieland;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
+import org.testcontainers.utility.DockerImageName;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @Testcontainers
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 public class AbstractBaseITest {
 
     private static final MySQLContainer<?> MY_SQL_CONTAINER;
@@ -26,8 +28,9 @@ public class AbstractBaseITest {
     protected ObjectMapper objectMapper;
 
     static {
+//        DockerImageName myImage = DockerImageName.parse("mariadb:10.5.8").asCompatibleSubstituteFor("mysql");
         MY_SQL_CONTAINER =
-                new MySQLContainer<>("mysql:8.0.24")
+                new MySQLContainer<>("mysql:latest")
                         .withDatabaseName("test")
                         .withUsername("test")
                         .withPassword("test");

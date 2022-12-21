@@ -1,19 +1,20 @@
 package com.podzirei.movieland.entity;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +28,8 @@ import java.util.Set;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movies_id_sequence")
+    @SequenceGenerator(name = "movies_id_sequence", sequenceName = "movies_id_sequence")
     @Column(name = "id")
     private int id;
 
@@ -61,6 +63,23 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_country",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "country_id"))
+    private Set<Country> countries = new HashSet<>();
+
+    public void addCountry(Country country) {
+        countries.add(country);
+        country.getMovies().add(this);
+    }
+
+    public void removeCountry(Country country) {
+        countries.remove(country);
+        country.getMovies().remove(this);
+    }
 
     public void addGenre(Genre genre) {
         genres.add(genre);

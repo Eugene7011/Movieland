@@ -19,12 +19,6 @@ public class DefaultGenreService implements GenreService {
     private final GenreMapper genreMapper;
 
     @Override
-    public GenreDto findById(int id) {
-        return genreMapper.genreToGenreDto(genreRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No genre for id: " + id)));
-    }
-
-    @Override
     public List<GenreDto> findAll() {
         return genreMapper.genresToGenresDtos(genreRepository.findAll());
     }

@@ -7,6 +7,4 @@ import java.util.List;
 public interface GenreService {
 
     List<GenreDto> findAll();
-
-    GenreDto findById(int id);
 }

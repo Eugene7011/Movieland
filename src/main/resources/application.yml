@@ -1,6 +1,12 @@
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://localhost:5000/movieland
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:9000/movieland
+    username: user
     password: user
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    properties:
+#      hibernate.default_schema: postgres.postgres.public
+    show-sql: true
