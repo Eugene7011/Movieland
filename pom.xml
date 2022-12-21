@@ -160,7 +160,7 @@
                         <configFile>flyway.conf</configFile>
                     </configFiles>
                     <locations>
-                        <location>filesystem:src/main/resources/db/migration</location>
+                        <location>filesystem:src/main/resources/db.migration</location>
                     </locations>
                 </configuration>
             </plugin>

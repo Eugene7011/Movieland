@@ -7,6 +7,4 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-#    properties:
-#      hibernate.default_schema: postgres.postgres.public
     show-sql: true
