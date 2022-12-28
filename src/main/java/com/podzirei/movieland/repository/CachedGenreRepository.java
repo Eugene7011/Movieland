@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class CachedGenreRepository implements GenreRepository {
     }
 
     @Scheduled(fixedRate = 1400000, initialDelay = 1400000)
-    @PostConstruct
+//    @PostConstruct
     @Transactional(readOnly = true)
     public void updateCache() {
         cachedGenres = defaultGenreRepository.findAll();

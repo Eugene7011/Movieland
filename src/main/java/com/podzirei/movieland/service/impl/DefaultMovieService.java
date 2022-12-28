@@ -9,6 +9,8 @@ import com.podzirei.movieland.repository.MovieRepository;
 import com.podzirei.movieland.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +75,6 @@ public class DefaultMovieService implements MovieService {
     @Override
     public List<MovieDto> findRandom() {
         List<MovieDto> allMovies = movieMapper.moviesToMovieDtos(movieRepository.findAll());
-//pageable + randomNumber
         return null;
     }
 

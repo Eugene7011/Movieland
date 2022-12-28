@@ -1,55 +1,32 @@
 package com.podzirei.movieland;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
-import org.testcontainers.utility.DockerImageName;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @Testcontainers
 @ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AbstractBaseITest {
 
-    private static final MySQLContainer<?> MY_SQL_CONTAINER;
-
-    @Autowired
-    protected ObjectMapper objectMapper;
-
-    static {
-//        DockerImageName myImage = DockerImageName.parse("mariadb:10.5.8").asCompatibleSubstituteFor("mysql");
-        MY_SQL_CONTAINER =
-                new MySQLContainer<>("mysql:latest")
-                        .withDatabaseName("test")
-                        .withUsername("test")
-                        .withPassword("test");
-        MY_SQL_CONTAINER.start();
-    }
+    @Container
+    private static final PostgreSQLContainer<?> container =
+            new PostgreSQLContainer<>("postgres:alpine")
+                    .withDatabaseName("test")
+                    .withUsername("test")
+                    .withPassword("test")
+                    .withReuse(true);
 
     @DynamicPropertySource
     public static void overrideProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", MY_SQL_CONTAINER::getJdbcUrl);
-        registry.add("spring.datasource.username", MY_SQL_CONTAINER::getUsername);
-        registry.add("spring.datasource.password", MY_SQL_CONTAINER::getPassword);
-    }
-
-    protected String getResponseAsString(String jsonPath) {
-        URL resource = getClass().getClassLoader().getResource(jsonPath);
-        try {
-            return FileUtils.readFileToString(new File(resource != null ? resource.toURI() : null), StandardCharsets.UTF_8);
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException("Unable to find file: " + jsonPath);
-        }
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.username", container::getUsername);
+        registry.add("spring.datasource.password", container::getPassword);
     }
 }
