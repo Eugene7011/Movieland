@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Immutable;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@Setter
+@Immutable
 @AllArgsConstructor
 @Entity
 @Table(name = "genre")

@@ -22,5 +22,4 @@ public class DefaultGenreService implements GenreService {
     public List<GenreDto> findAll() {
         return genreMapper.genresToGenresDtos(genreRepository.findAll());
     }
-
 }

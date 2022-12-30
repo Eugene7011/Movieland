@@ -23,7 +23,7 @@ class GenreControllerITest extends AbstractBaseITest {
     private MockMvc mockMvc;
 
     @Test
-    @DataSet(value = "datasets/movie/dataset_genres.yml", disableConstraints = true)
+    @DataSet("datasets/movie/dataset_genres.yml")
     @ExpectedDataSet("datasets/movie/dataset_genres.yml")
     @DisplayName("when Get All Genres then Ok Status Returned")
     void whenGetAllGenres_thenOkStatusReturned() throws Exception {
