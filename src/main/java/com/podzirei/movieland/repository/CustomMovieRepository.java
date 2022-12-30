@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.podzirei.movieland.web.controller.movie.SortDirection.ASC;
 
@@ -78,4 +79,16 @@ public class CustomMovieRepository implements MovieRepository {
         return query.getResultList();
     }
 
+    @Override
+    public Optional<Movie> findById(int movieId) {
+        Optional<Movie> movie= Optional.ofNullable(entityManager.createQuery("select m from Movie m " +
+                        "left join fetch m.genres" +
+                        "left join fetch m.countries" +
+                        "left join fetch m.reviews" +
+                        "left join fetch Review.user" +
+                        "where m.id = :movieId", Movie.class)
+                .setParameter("movieId", movieId)
+                .getSingleResult());
+        return movie;
+    }
 }

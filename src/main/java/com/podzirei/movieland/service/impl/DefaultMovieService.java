@@ -1,7 +1,9 @@
 package com.podzirei.movieland.service.impl;
 
 import com.podzirei.movieland.dto.MovieDto;
+import com.podzirei.movieland.exception.MovieNotFoundException;
 import com.podzirei.movieland.mapper.MovieMapper;
+import com.podzirei.movieland.repository.JpaMovieRepository;
 import com.podzirei.movieland.repository.MovieRepository;
 import com.podzirei.movieland.service.MovieService;
 import com.podzirei.movieland.web.controller.movie.MovieRequest;
@@ -19,6 +21,7 @@ public class DefaultMovieService implements MovieService {
     private int randomNumber;
     private final MovieMapper movieMapper;
     private final MovieRepository movieRepository;
+    private final JpaMovieRepository jpaMovieRepository;
 
     @Override
     public List<MovieDto> findAll() {
@@ -36,7 +39,8 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public List<MovieDto> findByMovieId(int movieId) {
-        return null;
+    public MovieDto findByMovieId(int movieId) {
+        return movieMapper.movieToMovieDto(movieRepository.findById(movieId)
+                .orElseThrow(() -> new MovieNotFoundException("User not found")));
     }
 }

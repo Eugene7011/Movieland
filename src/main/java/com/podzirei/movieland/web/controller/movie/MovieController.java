@@ -24,7 +24,7 @@ public class MovieController {
     }
 
     @GetMapping("/{movieId}")
-    public List<MovieDto> findByMovieId(@PathVariable("movieId") int movieId) {
+    public MovieDto findByMovieId(@PathVariable("movieId") int movieId) {
         return movieService.findByMovieId(movieId);
     }
 

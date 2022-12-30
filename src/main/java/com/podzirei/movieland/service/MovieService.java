@@ -10,5 +10,5 @@ public interface MovieService {
     List<MovieDto> findAll();
     List<MovieDto> findAll(MovieRequest movieRequest);
     List<MovieDto> findRandom();
-    List<MovieDto> findByMovieId(int movieId);
+    MovieDto findByMovieId(int movieId);
 }
