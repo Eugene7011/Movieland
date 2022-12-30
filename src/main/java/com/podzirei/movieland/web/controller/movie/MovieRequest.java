@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MovieRequest {
 
-        private SortDirection rating;
-        private SortDirection price;
-        private Integer genre;
+    private SortDirection rating;
+    private SortDirection price;
+    private Integer genre;
 }

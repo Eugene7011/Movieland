@@ -7,13 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Primary
@@ -27,11 +25,6 @@ public class CachedGenreRepository implements GenreRepository {
     @Override
     public List<Genre> findAll() {
         return new CopyOnWriteArrayList<>(cachedGenres);
-    }
-
-    @Override
-    public Optional<Genre> findById(int id) {
-        return defaultGenreRepository.findById(id);
     }
 
     @Scheduled(fixedRate = 1400000, initialDelay = 1400000)

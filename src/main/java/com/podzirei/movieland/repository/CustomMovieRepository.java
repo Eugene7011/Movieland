@@ -34,17 +34,17 @@ public class CustomMovieRepository implements MovieRepository {
     }
 
     @Override
-    public List<Movie> findAll(MovieRequest movieRequest){
+    public List<Movie> findAll(MovieRequest movieRequest) {
         SortDirection sortDirectionRating = movieRequest.getRating();
         SortDirection sortDirectionPrice = movieRequest.getPrice();
         SortDirection sortDirection = null;
         String sortParameter = null;
 
-        if (sortDirectionRating != null){
+        if (sortDirectionRating != null) {
             sortDirection = sortDirectionRating;
             sortParameter = "rating";
         }
-        if (sortDirectionPrice != null){
+        if (sortDirectionPrice != null) {
             sortDirection = sortDirectionPrice;
             sortParameter = "price";
         }
@@ -53,7 +53,7 @@ public class CustomMovieRepository implements MovieRepository {
         CriteriaQuery<Movie> query = criteriaBuilder.createQuery(Movie.class);
         Root<Movie> root = query.from(Movie.class);
 
-        if (sortDirection != null){
+        if (sortDirection != null) {
             var sortParameterExpression = root.get(sortParameter);
             Order order = sortDirection == ASC ? criteriaBuilder.asc(sortParameterExpression)
                     : criteriaBuilder.desc(sortParameterExpression);
@@ -61,9 +61,7 @@ public class CustomMovieRepository implements MovieRepository {
         }
 
         var genreIdOptional = movieRequest.getGenre();
-        if (genreIdOptional != null){
-//            var genres = root.join(Movie_.genres, JoinType.LEFT);
-//            query.where(criteriaBuilder.equal(genres.get(Genre_.id), genreIdOptional));
+        if (genreIdOptional != null) {
             Join<Movie, Genre> genre = root.join("genres");
 
             query.where(
