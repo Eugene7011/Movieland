@@ -1,6 +1,7 @@
 package com.podzirei.movieland.web.controller.movie;
 
 import com.podzirei.movieland.dto.MovieDto;
+import com.podzirei.movieland.dto.MovieResultDto;
 import com.podzirei.movieland.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class MovieController {
     }
 
     @GetMapping("/{movieId}")
-    public MovieDto findByMovieId(@PathVariable("movieId") int movieId) {
+    public MovieResultDto findByMovieId(@PathVariable("movieId") int movieId) {
         return movieService.findByMovieId(movieId);
     }
 

@@ -10,18 +10,13 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {GenreMapper.class, ReviewMapper.class})
 public interface MovieMapper {
 
-    List<MovieDto> moviesToMovieDtos(List<Movie> movies);
+    List<MovieDto> toMovieDtos(List<Movie> movies);
 
     @Mapping(target = "yearOfRelease", source = "yearOfRelease", qualifiedByName = "mapDateFromMovie")
     MovieDto movieToMovieDto(Movie movie);
-
-    @Mapping(target = "description", ignore = true)
-    @Mapping(target = "votes", ignore = true)
-    @Mapping(target = "yearOfRelease", source = "yearOfRelease", qualifiedByName = "mapDateFromMovieDto")
-    Movie movieDtoToMovie(MovieDto movieDto);
 
     @Named("mapDateFromMovie")
     default String mapDateFromMovie(Date date) {
