@@ -9,7 +9,12 @@ import java.util.List;
 public interface MovieService {
 
     List<MovieDto> findAll();
+
     List<MovieDto> findAll(MovieRequest movieRequest);
+
     List<MovieDto> findRandom();
+
     MovieResultDto findByMovieId(int movieId);
+
+    MovieResultDto findByMovieId(int movieId, String currency);
 }

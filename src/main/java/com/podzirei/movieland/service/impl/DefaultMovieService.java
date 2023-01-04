@@ -1,11 +1,14 @@
 package com.podzirei.movieland.service.impl;
 
+import com.podzirei.movieland.currency.CurrencyDataDto;
+import com.podzirei.movieland.currency.CurrencyRateParser;
 import com.podzirei.movieland.dto.MovieDto;
 import com.podzirei.movieland.dto.MovieResultDto;
 import com.podzirei.movieland.entity.Country;
 import com.podzirei.movieland.entity.Genre;
 import com.podzirei.movieland.entity.Movie;
 import com.podzirei.movieland.entity.Review;
+import com.podzirei.movieland.exception.CurrencyNotFoundException;
 import com.podzirei.movieland.exception.MovieNotFoundException;
 import com.podzirei.movieland.exception.ReviewNotFoundException;
 import com.podzirei.movieland.mapper.CountryMapper;
@@ -42,6 +45,7 @@ public class DefaultMovieService implements MovieService {
     private final JpaGenreRepository jpaGenreRepository;
     private final JpaCountryRepository jpaCountryRepository;
     private final JpaReviewRepository jpaReviewRepository;
+    private final CurrencyRateParser currencyRateParser;
 
     @Override
     @Transactional(readOnly = true)
@@ -71,8 +75,32 @@ public class DefaultMovieService implements MovieService {
         List<Review> reviews = jpaReviewRepository.findReviewsByMovieNative(movieId)
                 .orElseThrow(() -> new ReviewNotFoundException(movieId));
 
+        MovieResultDto movieResultDto = setMovieResultDto(movie);
+
+        movieResultDto.setGenres(genreMapper.genresToGenresDtos(genres));
+        movieResultDto.setCountries(countryMapper.toCountryDtos(countries));
+        movieResultDto.setReviews(reviewMapper.toReviewDtos(reviews));
+
+        return movieResultDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public MovieResultDto findByMovieId(int movieId, String currency) {
+        CurrencyDataDto currencyData = currencyRateParser.getAllRates()
+                .stream()
+                .filter(dataDto -> dataDto.getCc().equalsIgnoreCase(currency))
+                .findFirst()
+                .orElseThrow(() -> new CurrencyNotFoundException(currency));
+
+        MovieResultDto movieResultDto = findByMovieId(movieId);
+        movieResultDto.setPrice(currencyData.getRate() * movieResultDto.getPrice());
+        return movieResultDto;
+    }
+
+    private MovieResultDto setMovieResultDto(Movie movie) {
         MovieResultDto movieResultDto = new MovieResultDto();
-        movieResultDto.setId(movieId);
+        movieResultDto.setId(movie.getId());
         movieResultDto.setNameRussian(movie.getNameRussian());
         movieResultDto.setNameNative(movie.getNameNative());
         SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
@@ -81,10 +109,6 @@ public class DefaultMovieService implements MovieService {
         movieResultDto.setRating(movie.getRating());
         movieResultDto.setPrice(movie.getPrice());
         movieResultDto.setPicturePath(movie.getPicturePath());
-
-        movieResultDto.setGenres(genreMapper.genresToGenresDtos(genres));
-        movieResultDto.setCountries(countryMapper.toCountryDtos(countries));
-        movieResultDto.setReviews(reviewMapper.toReviewDtos(reviews));
 
         return movieResultDto;
     }

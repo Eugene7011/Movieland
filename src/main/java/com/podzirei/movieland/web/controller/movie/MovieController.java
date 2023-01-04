@@ -24,9 +24,13 @@ public class MovieController {
         return movieService.findAll(movieRequest);
     }
 
-    @GetMapping("/{movieId}")
-    public MovieResultDto findByMovieId(@PathVariable("movieId") int movieId) {
-        return movieService.findByMovieId(movieId);
+    @GetMapping("/{movieId}{currency}")
+    public MovieResultDto findByMovieId(@PathVariable("movieId") int movieId,
+                                        String currency) {
+        if ("".equals(currency) || currency == null) {
+            return movieService.findByMovieId(movieId);
+        }
+        return movieService.findByMovieId(movieId, currency);
     }
 
     @GetMapping("/random")
