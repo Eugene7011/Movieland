@@ -1,4 +1,4 @@
-package com.podzirei.movieland.dto;
+package com.podzirei.movieland.web.controller.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReviewDto {
-    private int id;
+public class ReviewPostRequest {
     private int movieId;
-    private int userId;
     private String text;
 }

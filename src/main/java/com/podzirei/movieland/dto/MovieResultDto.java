@@ -1,6 +1,7 @@
 package com.podzirei.movieland.dto;
 
 
+import com.podzirei.movieland.web.controller.movie.ReviewResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,5 +27,5 @@ public class MovieResultDto {
     private String picturePath;
     private List<CountryDto> countries;
     private List<GenreDto> genres;
-    private List<ReviewDto> reviews;
+    private List<ReviewResponse> reviews;
 }

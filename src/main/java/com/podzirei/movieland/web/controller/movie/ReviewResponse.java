@@ -1,5 +1,6 @@
-package com.podzirei.movieland.dto;
+package com.podzirei.movieland.web.controller.movie;
 
+import com.podzirei.movieland.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,9 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReviewDto {
+public class ReviewResponse {
     private int id;
-    private int movieId;
-    private int userId;
+    private UserDto user;
     private String text;
 }

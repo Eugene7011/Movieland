@@ -79,7 +79,7 @@ public class DefaultMovieService implements MovieService {
 
         movieResultDto.setGenres(genreMapper.genresToGenresDtos(genres));
         movieResultDto.setCountries(countryMapper.toCountryDtos(countries));
-        movieResultDto.setReviews(reviewMapper.toReviewDtos(reviews));
+        movieResultDto.setReviews(reviewMapper.toReviewResponses(reviews));
 
         return movieResultDto;
     }
