@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class DefaultGenreService implements GenreService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<GenreDto> findAll() {
-        return genreMapper.genresToGenresDtos(genreRepository.findAll());
+    public Set<GenreDto> findAll() {
+        return genreMapper.genresToGenresDtos(new HashSet<>(genreRepository.findAll()));
     }
 }

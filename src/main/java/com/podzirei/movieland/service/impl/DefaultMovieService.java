@@ -22,13 +22,17 @@ import com.podzirei.movieland.repository.JpaReviewRepository;
 import com.podzirei.movieland.repository.MovieRepository;
 import com.podzirei.movieland.service.MovieService;
 import com.podzirei.movieland.web.controller.movie.MovieRequest;
+import com.podzirei.movieland.web.controller.movie.MovieResponse;
+import com.podzirei.movieland.web.controller.movie.MovieUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -49,20 +53,20 @@ public class DefaultMovieService implements MovieService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MovieDto> findAll() {
-        return movieMapper.toMovieDtos(movieRepository.findAll());
+    public List<MovieResponse> findAll() {
+        return movieMapper.toMovieResponses(movieRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<MovieDto> findAll(MovieRequest movieRequest) {
-        return movieMapper.toMovieDtos(movieRepository.findAll(movieRequest));
+    public List<MovieResponse> findAll(MovieRequest movieRequest) {
+        return movieMapper.toMovieResponses(movieRepository.findAll(movieRequest));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<MovieDto> findRandom() {
-        return movieMapper.toMovieDtos(movieRepository.getRandom(randomNumber));
+    public List<MovieResponse> findRandom() {
+        return movieMapper.toMovieResponses(movieRepository.getRandom(randomNumber));
     }
 
     @Override
@@ -77,8 +81,8 @@ public class DefaultMovieService implements MovieService {
 
         MovieResultDto movieResultDto = setMovieResultDto(movie);
 
-        movieResultDto.setGenres(genreMapper.genresToGenresDtos(genres));
-        movieResultDto.setCountries(countryMapper.toCountryDtos(countries));
+        movieResultDto.setGenres(genreMapper.genresToGenresDtos(new HashSet<>(genres)));
+        movieResultDto.setCountries(countryMapper.toCountryDtos(new HashSet<>(countries)));
         movieResultDto.setReviews(reviewMapper.toReviewResponses(reviews));
 
         return movieResultDto;
@@ -98,6 +102,34 @@ public class DefaultMovieService implements MovieService {
         return movieResultDto;
     }
 
+    @Override
+    public MovieResultDto add(MovieDto movieDto) {
+        Movie movie = movieMapper.toMovie(movieDto);
+        setGenresAndCountries(movie, movieDto.getGenres(), movieDto.getCountries());
+
+        return setMovieResultDto(jpaMovieRepository.save(movie));
+    }
+
+    @Override
+    public MovieResultDto update(int movieId, MovieUpdateRequest movieUpdateRequest) {
+        Movie movie = jpaMovieRepository.findById(movieId)
+                .map(mov -> movieMapper.update(mov, movieUpdateRequest))
+                .orElseThrow(() -> new MovieNotFoundException(movieId));
+        setGenresAndCountries(movie, movieUpdateRequest.getGenres(), movieUpdateRequest.getCountries());
+
+        return setMovieResultDto(jpaMovieRepository.save(movie));
+    }
+
+    private void setGenresAndCountries(Movie movie, Set<Integer> genres, Set<Integer> countries) {
+        Set<Genre> genresByIds = new HashSet<>(jpaGenreRepository.findAllById(genres));
+        genresByIds.forEach(genre -> genre.getMovies().clear());
+        Set<Country> countriesById = new HashSet<>(jpaCountryRepository.findAllById(countries));
+        countriesById.forEach(country -> country.getMovies().clear());
+
+        movie.setCountries(countriesById);
+        movie.setGenres(genresByIds);
+    }
+
     private MovieResultDto setMovieResultDto(Movie movie) {
         MovieResultDto movieResultDto = new MovieResultDto();
         movieResultDto.setId(movie.getId());
@@ -109,6 +141,11 @@ public class DefaultMovieService implements MovieService {
         movieResultDto.setRating(movie.getRating());
         movieResultDto.setPrice(movie.getPrice());
         movieResultDto.setPicturePath(movie.getPicturePath());
+        movieResultDto.setGenres(genreMapper.genresToGenresDtos(movie.getGenres()));
+        movieResultDto.setCountries(countryMapper.toCountryDtos(movie.getCountries()));
+        List<Review> reviews = jpaReviewRepository.findReviewsByMovieNative(movie.getId())
+                .orElseThrow(() -> new ReviewNotFoundException(movie.getId()));
+        movieResultDto.setReviews(reviewMapper.toReviewResponses(reviews));
 
         return movieResultDto;
     }

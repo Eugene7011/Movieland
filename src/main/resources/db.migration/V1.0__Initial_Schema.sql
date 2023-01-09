@@ -17,10 +17,10 @@ CREATE TABLE "movie"(
     "name_native" VARCHAR(100) NOT NULL,
     "year_of_release" DATE NOT NULL,
     "description" VARCHAR(1000) NOT NULL,
-    "rating" DECIMAL(8, 1)  NOT NULL,
+    "rating" DECIMAL(4, 2),
     "price" DECIMAL(8, 2)  NOT NULL,
     "picture_path" VARCHAR(255) NOT NULL,
-    "votes" INTEGER NOT NULL
+    "votes" INTEGER
 );
 
 CREATE TABLE "country"(
@@ -38,7 +38,7 @@ CREATE TABLE "review"(
 CREATE TABLE "rating"(
      "user_id" INTEGER NOT NULL,
      "movie_id" INTEGER NOT NULL,
-     "rating" DECIMAL(8, 1) NOT NULL
+     "rating" DECIMAL(4, 2)
 );
 
 CREATE TABLE "movie_genre"(

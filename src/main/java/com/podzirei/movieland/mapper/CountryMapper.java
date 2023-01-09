@@ -5,7 +5,7 @@ import com.podzirei.movieland.entity.Country;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = MovieMapper.class)
 public interface CountryMapper {
@@ -13,5 +13,5 @@ public interface CountryMapper {
     @Mapping(target = "name", source = "name")
     CountryDto toCountryDto(Country country);
 
-    List<CountryDto> toCountryDtos(List<Country> contries);
+    Set<CountryDto> toCountryDtos(Set<Country> contries);
 }

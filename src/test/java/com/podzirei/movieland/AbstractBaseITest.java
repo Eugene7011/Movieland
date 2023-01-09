@@ -12,16 +12,16 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest
 @Testcontainers
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AbstractBaseITest {
 
     @Container
     private static final PostgreSQLContainer<?> container =
-            new PostgreSQLContainer<>("postgres:alpine")
+            new PostgreSQLContainer<>("postgres:14.4")
                     .withDatabaseName("test")
                     .withUsername("test")
-                    .withPassword("test")
-                    .withReuse(true);
+                    .withPassword("test");
+//                    .withReuse(true);
 
     @DynamicPropertySource
     public static void overrideProps(DynamicPropertyRegistry registry) {

@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +23,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public List<MovieDto> findAll(MovieRequest movieRequest) {
+    public List<MovieResponse> findAll(MovieRequest movieRequest) {
         return movieService.findAll(movieRequest);
     }
 
@@ -34,8 +37,20 @@ public class MovieController {
     }
 
     @GetMapping("/random")
-    public List<MovieDto> getRandom() {
+    public List<MovieResponse> getRandom() {
         return movieService.findRandom();
     }
 
+    @PostMapping("/add")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'U')") //TODO: change only to ADMIN
+    public MovieResultDto addMovie(@RequestBody MovieDto movieDto) {
+        return movieService.add(movieDto);
+    }
+
+    @PutMapping("/{id}")
+    //    @PreAuthorize("hasAnyRole('ADMIN', 'U')") //TODO: change only to ADMIN
+    public MovieResultDto update(@PathVariable("id") int movieId,
+                                 @RequestBody MovieUpdateRequest movieUpdateRequest) {
+        return movieService.update(movieId, movieUpdateRequest);
+    }
 }

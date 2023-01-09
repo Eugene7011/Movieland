@@ -4,12 +4,12 @@ import com.podzirei.movieland.dto.GenreDto;
 import com.podzirei.movieland.entity.Genre;
 import org.mapstruct.Mapper;
 
-import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface GenreMapper {
 
-    List<GenreDto> genresToGenresDtos(List<Genre> genres);
+    Set<GenreDto> genresToGenresDtos(Set<Genre> genres);
 
     GenreDto genreToGenreDto(Genre genre);
 

@@ -2,9 +2,9 @@ package com.podzirei.movieland.service;
 
 import com.podzirei.movieland.dto.CountryDto;
 
-import java.util.List;
+import java.util.Set;
 
 public interface CountryService {
 
-    List<CountryDto> findAll();
+    Set<CountryDto> findAll();
 }

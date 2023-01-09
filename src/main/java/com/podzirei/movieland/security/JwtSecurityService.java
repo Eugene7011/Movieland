@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-@Component
+//@Component
 @Getter
 @Setter
-public class JwtUtils {
+public class JwtSecurityService {
 
     private final static String SIGN_KEY = "SUPER_MEGA_SECRET_KEY";
 
