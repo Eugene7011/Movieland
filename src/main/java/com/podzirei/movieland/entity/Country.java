@@ -43,6 +43,10 @@ public class Country {
         this.name = name;
     }
 
+    public Country(int id, String name) {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

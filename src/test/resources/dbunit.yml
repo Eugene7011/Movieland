@@ -1,5 +1,5 @@
 caseInsensitiveStrategy: !!com.github.database.rider.core.api.configuration.Orthography 'LOWERCASE'
-#cacheConnection: false
+cacheConnection: true
 properties:
-  datatypeFactory: !!com.podzirei.movieland.config.JsonBPostgresqlDataTypeFactory {}
-  caseSensitiveTableNames: true
+#  datatypeFactory: !!com.podzirei.movieland.config.JsonBPostgresqlDataTypeFactory {}
+  caseSensitiveTableNames: false
