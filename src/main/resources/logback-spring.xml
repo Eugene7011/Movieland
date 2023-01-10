@@ -11,6 +11,14 @@
         </layout>
     </appender>
 
+    <appender name="REQUESTLOG" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} %magenta([%thread]) %X{requestId} %X{userEmail} %highlight(%-5level) %logger{36}.%M - %m %X{userId}%n
+            </Pattern>
+        </layout>
+    </appender>
+
     <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -22,7 +30,7 @@
         </rollingPolicy>
 
         <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-            <maxFileSize>5MB</maxFileSize>
+            <maxFileSize>10MB</maxFileSize>
         </timeBasedFileNamingAndTriggeringPolicy>
     </appender>
 
@@ -32,5 +40,9 @@
 
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <root level="DEBUG">
+        <appender-ref ref="REQUESTLOG"/>
     </root>
 </configuration>
