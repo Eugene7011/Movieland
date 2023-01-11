@@ -28,7 +28,7 @@ public class CachedGenreRepository implements GenreRepository {
     }
 
     @Scheduled(fixedRate = 1400000, initialDelay = 1400000)
-    @PostConstruct
+//    @PostConstruct
     @Transactional(readOnly = true)
     public void updateCache() {
         cachedGenres = defaultGenreRepository.findAll();

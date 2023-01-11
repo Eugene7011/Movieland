@@ -1,4 +1,4 @@
-package com.podzirei.movieland.web.controller.movie;
+package com.podzirei.movieland.request;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

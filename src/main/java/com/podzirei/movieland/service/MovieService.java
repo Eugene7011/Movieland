@@ -1,10 +1,10 @@
 package com.podzirei.movieland.service;
 
 import com.podzirei.movieland.dto.MovieDto;
-import com.podzirei.movieland.dto.MovieResultDto;
-import com.podzirei.movieland.web.controller.movie.MovieRequest;
-import com.podzirei.movieland.web.controller.movie.MovieResponse;
-import com.podzirei.movieland.web.controller.movie.MovieUpdateRequest;
+import com.podzirei.movieland.response.MovieResultResponse;
+import com.podzirei.movieland.request.MovieRequest;
+import com.podzirei.movieland.response.MovieResponse;
+import com.podzirei.movieland.request.MovieUpdateRequest;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ public interface MovieService {
 
     List<MovieResponse> findRandom();
 
-    MovieResultDto findByMovieId(int movieId);
+    MovieResultResponse findByMovieId(int movieId);
 
-    MovieResultDto findByMovieId(int movieId, String currency);
+    MovieResultResponse findByMovieId(int movieId, String currency);
 
-    MovieResultDto add(MovieDto movieDto);
+    MovieResultResponse add(MovieDto movieDto);
 
-    MovieResultDto update(int movieId, MovieUpdateRequest movieUpdateRequest);
+    MovieResultResponse update(int movieId, MovieUpdateRequest movieUpdateRequest);
 }

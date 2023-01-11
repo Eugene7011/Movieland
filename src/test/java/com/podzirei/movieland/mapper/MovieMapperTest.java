@@ -4,7 +4,7 @@ import com.podzirei.movieland.dto.MovieDto;
 import com.podzirei.movieland.entity.Country;
 import com.podzirei.movieland.entity.Genre;
 import com.podzirei.movieland.entity.Movie;
-import com.podzirei.movieland.web.controller.movie.MovieResponse;
+import com.podzirei.movieland.response.MovieResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

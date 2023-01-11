@@ -1,4 +1,4 @@
-package com.podzirei.movieland.web.controller.movie;
+package com.podzirei.movieland.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

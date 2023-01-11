@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Primary
+//@Repository
+//@Primary
 public class TestGenreRepository implements GenreRepository {
     @Override
     public List<Genre> findAll() {

@@ -7,7 +7,7 @@ import com.podzirei.movieland.mapper.ReviewMapper;
 import com.podzirei.movieland.repository.JpaReviewRepository;
 import com.podzirei.movieland.service.ReviewService;
 import com.podzirei.movieland.service.UserService;
-import com.podzirei.movieland.web.controller.review.ReviewPostRequest;
+import com.podzirei.movieland.request.ReviewPostRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

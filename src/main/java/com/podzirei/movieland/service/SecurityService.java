@@ -1,7 +1,7 @@
 package com.podzirei.movieland.service;
 
-import com.podzirei.movieland.security.dto.AuthenticationRequest;
-import com.podzirei.movieland.security.dto.AuthenticationResponse;
+import com.podzirei.movieland.request.AuthenticationRequest;
+import com.podzirei.movieland.response.AuthenticationResponse;
 
 public interface SecurityService {
     AuthenticationResponse authenticate(AuthenticationRequest request);

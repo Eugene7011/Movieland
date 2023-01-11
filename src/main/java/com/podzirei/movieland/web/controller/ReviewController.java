@@ -1,6 +1,7 @@
-package com.podzirei.movieland.web.controller.review;
+package com.podzirei.movieland.web.controller;
 
 import com.podzirei.movieland.dto.ReviewDto;
+import com.podzirei.movieland.request.ReviewPostRequest;
 import com.podzirei.movieland.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

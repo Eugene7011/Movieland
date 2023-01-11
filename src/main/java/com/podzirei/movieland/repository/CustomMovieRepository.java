@@ -2,8 +2,8 @@ package com.podzirei.movieland.repository;
 
 import com.podzirei.movieland.entity.Genre;
 import com.podzirei.movieland.entity.Movie;
-import com.podzirei.movieland.web.controller.movie.MovieRequest;
-import com.podzirei.movieland.web.controller.movie.SortDirection;
+import com.podzirei.movieland.request.MovieRequest;
+import com.podzirei.movieland.request.SortDirection;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.podzirei.movieland.web.controller.movie.SortDirection.ASC;
+import static com.podzirei.movieland.request.SortDirection.ASC;
 
 @Repository
 @RequiredArgsConstructor

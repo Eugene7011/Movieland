@@ -1,7 +1,7 @@
 package com.podzirei.movieland.web.controller;
 
-import com.podzirei.movieland.security.dto.AuthenticationRequest;
-import com.podzirei.movieland.security.dto.AuthenticationResponse;
+import com.podzirei.movieland.request.AuthenticationRequest;
+import com.podzirei.movieland.response.AuthenticationResponse;
 import com.podzirei.movieland.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

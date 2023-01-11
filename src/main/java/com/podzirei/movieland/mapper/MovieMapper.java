@@ -2,8 +2,8 @@ package com.podzirei.movieland.mapper;
 
 import com.podzirei.movieland.dto.MovieDto;
 import com.podzirei.movieland.entity.Movie;
-import com.podzirei.movieland.web.controller.movie.MovieResponse;
-import com.podzirei.movieland.web.controller.movie.MovieUpdateRequest;
+import com.podzirei.movieland.response.MovieResponse;
+import com.podzirei.movieland.request.MovieUpdateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

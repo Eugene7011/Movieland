@@ -1,7 +1,7 @@
 package com.podzirei.movieland.mapper;
 
 import com.podzirei.movieland.dto.ReviewDto;
-import com.podzirei.movieland.web.controller.movie.ReviewResponse;
+import com.podzirei.movieland.response.ReviewResponse;
 import com.podzirei.movieland.entity.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

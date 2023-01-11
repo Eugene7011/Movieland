@@ -23,8 +23,8 @@ class MovieControllerITest extends AbstractBaseITest {
     private MockMvc mockMvc;
 
     @Test
-    @DataSet(value = "datasets/yml/dataset_movies.yml")
-    @ExpectedDataSet("datasets/yml/dataset_movies.yml")
+    @DataSet(value = "datasets/dataset_movies.yml")
+    @ExpectedDataSet("datasets/dataset_movies.yml")
     @DisplayName("when Get All Movies then Ok Status Returned")
     void whenGetAllMovies_thenOkStatusReturned() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/movie")

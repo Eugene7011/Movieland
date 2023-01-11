@@ -1,7 +1,10 @@
-package com.podzirei.movieland.web.controller.movie;
+package com.podzirei.movieland.web.controller;
 
 import com.podzirei.movieland.dto.MovieDto;
-import com.podzirei.movieland.dto.MovieResultDto;
+import com.podzirei.movieland.response.MovieResultResponse;
+import com.podzirei.movieland.request.MovieRequest;
+import com.podzirei.movieland.request.MovieUpdateRequest;
+import com.podzirei.movieland.response.MovieResponse;
 import com.podzirei.movieland.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -33,8 +36,8 @@ public class MovieController {
     }
 
     @GetMapping("/{movieId}{currency}")
-    public MovieResultDto findByMovieId(@PathVariable("movieId") int movieId,
-                                        String currency) {
+    public MovieResultResponse findByMovieId(@PathVariable("movieId") int movieId,
+                                             String currency) {
         logger.info("Query get feedback by userId: ");
         if ("".equals(currency) || currency == null) {
             return movieService.findByMovieId(movieId);
@@ -50,15 +53,15 @@ public class MovieController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN', 'U')") //TODO: change only to ADMIN
-    public MovieResultDto addMovie(@RequestBody MovieDto movieDto) {
+    public MovieResultResponse addMovie(@RequestBody MovieDto movieDto) {
         logger.info("Query get feedback by userId: ");
         return movieService.add(movieDto);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'U')") //TODO: change only to ADMIN
-    public MovieResultDto update(@PathVariable("id") int movieId,
-                                 @RequestBody MovieUpdateRequest movieUpdateRequest) {
+    public MovieResultResponse update(@PathVariable("id") int movieId,
+                                      @RequestBody MovieUpdateRequest movieUpdateRequest) {
         logger.info("Query get feedback by userId: ");
         return movieService.update(movieId, movieUpdateRequest);
     }

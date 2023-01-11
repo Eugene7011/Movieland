@@ -1,7 +1,7 @@
 package com.podzirei.movieland.service;
 
 import com.podzirei.movieland.dto.ReviewDto;
-import com.podzirei.movieland.web.controller.review.ReviewPostRequest;
+import com.podzirei.movieland.request.ReviewPostRequest;
 
 public interface ReviewService {
 

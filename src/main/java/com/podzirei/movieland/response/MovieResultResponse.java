@@ -1,7 +1,9 @@
-package com.podzirei.movieland.dto;
+package com.podzirei.movieland.response;
 
 
-import com.podzirei.movieland.web.controller.movie.ReviewResponse;
+import com.podzirei.movieland.dto.CountryDto;
+import com.podzirei.movieland.dto.GenreDto;
+import com.podzirei.movieland.response.ReviewResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MovieResultDto {
+public class MovieResultResponse {
 
     private int id;
     private String nameRussian;

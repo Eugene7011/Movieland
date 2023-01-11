@@ -1,4 +1,4 @@
-package com.podzirei.movieland.web.controller.movie;
+package com.podzirei.movieland.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.podzirei.movieland.security.dto;
+package com.podzirei.movieland.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

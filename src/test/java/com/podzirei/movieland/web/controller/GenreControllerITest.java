@@ -31,8 +31,8 @@ class GenreControllerITest extends AbstractBaseITest {
     private GenreRepository genreRepository;
 
     @Test
-    @DataSet("movie/yml/dataset_genres.yml")
-    @ExpectedDataSet("datasets/yml/dataset_genres.yml")
+    @DataSet("datasets/dataset_genres.yml")
+    @ExpectedDataSet("datasets/dataset_genres.yml")
     @DisplayName("when Get All Genres then Ok Status Returned")
     void whenGetAllGenres_thenOkStatusReturned() throws Exception {
         when(genreRepository.findAll()).thenReturn(List.of(new Genre(1, "драма"),
