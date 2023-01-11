@@ -3,6 +3,7 @@ package com.podzirei.movieland.multithread;
 import com.podzirei.movieland.entity.Review;
 import com.podzirei.movieland.exception.ReviewNotFoundException;
 import com.podzirei.movieland.repository.JpaReviewRepository;
+import com.podzirei.movieland.service.impl.DefaultMovieService;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.util.concurrent.Callable;
 public class ReviewServiceCallable implements Callable<String> {
 
     private static final long WAITING_TASK_TIME = 5000;
-    private List<Review> reviews = new ArrayList<>();
     private final JpaReviewRepository jpaReviewRepository;
     private final int movieId;
 
@@ -26,12 +26,11 @@ public class ReviewServiceCallable implements Callable<String> {
     public String call() throws Exception {
         long start = System.currentTimeMillis();
         long end = start + WAITING_TASK_TIME;
-//        while (System.currentTimeMillis() < end) {
-            reviews = jpaReviewRepository.findReviewsByMovieNative(movieId)
+        while (System.currentTimeMillis() < end || DefaultMovieService.reviews.isEmpty()) {
+            DefaultMovieService.reviews = jpaReviewRepository.findReviewsByMovieNative(movieId)
                     .orElseThrow(() -> new ReviewNotFoundException(movieId));
-//            return Thread.currentThread().getName();
-//        }
-//        Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
+        }
 
         return Thread.currentThread().getName();
     }

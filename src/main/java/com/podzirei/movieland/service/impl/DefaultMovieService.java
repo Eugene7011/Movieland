@@ -39,14 +39,20 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Getter
 @RequiredArgsConstructor
 public class DefaultMovieService implements MovieService {
 
+    public static List<Genre> genres = new CopyOnWriteArrayList<>();
+    public static List<Country> countries = new CopyOnWriteArrayList<>();
+    public static List<Review> reviews = new CopyOnWriteArrayList<>();
     @Value("${movies.random.count:3}")
     private int randomNumber;
     private final MovieMapper movieMapper;
@@ -59,7 +65,6 @@ public class DefaultMovieService implements MovieService {
     private final JpaCountryRepository jpaCountryRepository;
     private final JpaReviewRepository jpaReviewRepository;
     private final CurrencyRateParser currencyRateParser;
-    private List<Genre> genres = new ArrayList<>();
 
     @Override
     @Transactional(readOnly = true)
@@ -90,15 +95,16 @@ public class DefaultMovieService implements MovieService {
 
         GenreServiceRunnable genreServiceRunnable = new GenreServiceRunnable(jpaGenreRepository, movie);
         executorService.execute(genreServiceRunnable);
-        List<Genre> genres = genreServiceRunnable.getGenres();
+//        List<Genre> genres = genreServiceRunnable.getGenres();
 
         CountryServiceRunnable countryServiceRunnable = new CountryServiceRunnable(jpaCountryRepository, movie);
         executorService.execute(countryServiceRunnable);
-        List<Country> countries = countryServiceRunnable.getCountries();
+//        List<Country> countries = countryServiceRunnable.getCountries();
 
         ReviewServiceCallable reviewServiceCallable = new ReviewServiceCallable(jpaReviewRepository, movieId);
-        executorService.submit(reviewServiceCallable);
-        List<Review> reviews = reviewServiceCallable.getReviews();
+        Future<String> future = executorService.submit(reviewServiceCallable);
+        future.get();
+//        List<Review> reviews = reviewServiceCallable.getReviews();
 //        try {
 //            List<Review> call = reviewServiceCallable.call();
 //        } catch (InterruptedException | ExecutionException e | ) {

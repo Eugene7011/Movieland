@@ -11,12 +11,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
 public class GenreServiceRunnable implements Runnable {
 
     private static final long WAITING_TASK_TIME = 5000;
-    private List<Genre> genres = new ArrayList<>();
     private final JpaGenreRepository jpaGenreRepository;
     private final Movie movie;
 
@@ -29,10 +26,9 @@ public class GenreServiceRunnable implements Runnable {
     public void run() {
         long start = System.currentTimeMillis();
         long end = start + WAITING_TASK_TIME;
-//        while (System.currentTimeMillis() < end) {
-//            DefaultMovieService = jpaGenreRepository.findGenresByMoviesContains(movie);
-//            return;
-//        }
-//        Thread.currentThread().interrupt();
+        while (System.currentTimeMillis() < end || DefaultMovieService.genres.isEmpty()) {
+            DefaultMovieService.genres = jpaGenreRepository.findGenresByMoviesContains(movie);
+            Thread.currentThread().interrupt();
+        }
     }
 }
